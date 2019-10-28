@@ -19,5 +19,5 @@ find_pi.cc      指定进程个数为 n，计算pi
 
 Slice = 1000000
 | Node number | Elapsed time | error
-| Cluster nodes = 2 | 161.45 | 2e-8
-| Cluster nodes = 3 | 135.92 | 2e-8
+| Cluster nodes = 2 | 161 | 2e-8
+| Cluster nodes = 3 | 138 | 2e-8

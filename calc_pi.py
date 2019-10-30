@@ -7,7 +7,7 @@ rank = comm.Get_rank()
 size = comm.Get_size()
 
 # I will change these parameters for the performance table
-slice_size = 500000
+slice_size = 333333
 total_slices = 50
 
 start = time.time()

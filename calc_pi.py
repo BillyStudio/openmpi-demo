@@ -6,9 +6,8 @@ comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
 size = comm.Get_size()
 
-# I will change these parameters for the performance table
-slice_size = 333333
-total_slices = 50
+slice_size = 500000
+total_slices = 10
 
 start = time.time()
 pi4 = 0.0
@@ -17,7 +16,6 @@ if rank == 0:
     pi = 0
     slice = 0
     process = 1
-    # print(size)
 
     # Send the first batch of processes to the nodes.
     while process < size and slice < total_slices:
@@ -44,7 +42,6 @@ if rank == 0:
         comm.send(-1, dest=process, tag=1)
         
     pi4 = 4.0 * pi
-    #print "Pi is ", 4.0 * pi
     
 # These are the slave nodes, where rank > 0. They do the real work
 else:
@@ -53,7 +50,7 @@ else:
         if start == -1: break
         
         i = 0
-        slice_value = 0
+        slice_value = 0.0
         while i < slice_size:
             if i%2 == 0:
                 slice_value += 1.0 / (2*(start*slice_size+i)+1)
@@ -61,6 +58,7 @@ else:
                 slice_value -= 1.0 / (2*(start*slice_size+i)+1)
             i += 1
             
+        # print('Send slice value', slice_value)
         comm.send(slice_value, dest=0, tag=1)
         comm.send(rank, dest=0, tag=2)
 
